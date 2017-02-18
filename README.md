@@ -21,12 +21,17 @@ The outputs that may be computed include
  + scattered and total **E** and **H** fields at arbitrary points in space
 
  + scattered and absorbed power, force and torque as obtained by integrating the Poynting vector and Maxwell stress tensor over a bounding sphere surrounding the particle
-
+ 
 # Theory
 ========
 
 The theoretical approach and notation used by this code 
 is described in [this memo][scuffSpherical]
+
+# Building
+========
+
+The repository includes a simple `Makefile`. You will need to have [<span font-variant="small-caps">scuff-em</span>][scuffEM] installed before you can build this code.  
 
 # Specifying geometries
 ========
@@ -188,5 +193,6 @@ gnuplot> plot FILE u (D3($1,$2,$3)):(D6($7,$8,$9,$10,$11,$12))
 
 ![Doubly resonant nanoparticle field vs. radius](EvR.png)
 
+[scuffEM]:		http://github.com/HomerReid/scuff-em
 [scuffMaterials]:		http://homerreid.github.io/scuff-em-documentation/reference/Materials
 [scuffSpherical]:		http://homerreid.github.io/scuff-em-documentation/tex/scuffSpherical.pdf
