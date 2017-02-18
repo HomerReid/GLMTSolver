@@ -188,5 +188,5 @@ gnuplot> plot FILE u (D3($1,$2,$3)):(D6($7,$8,$9,$10,$11,$12))
 
 ![Doubly resonant nanoparticle field vs. radius](EvR.png)
 
-scuffMaterials:		http://homerreid.github.io/scuff-em-documentation/reference/Materials
-scuffSpherical:		http://homerreid.github.io/scuff-em-documentation/tex/scuffSpherical.pdf
+[scuffMaterials]:		http://homerreid.github.io/scuff-em-documentation/reference/Materials
+[scuffSpherical]:		http://homerreid.github.io/scuff-em-documentation/tex/scuffSpherical.pdf
