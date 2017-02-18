@@ -23,18 +23,13 @@ The outputs that may be computed include
  + scattered and absorbed power, force and torque as obtained by integrating the Poynting vector and Maxwell stress tensor over a bounding sphere surrounding the particle
  
 # Theory
-========
+-------------------------------
 
 The theoretical approach and notation used by this code 
 is described in [this memo][scuffSpherical].
 
-# Building
-========
-
-The repository includes a simple `Makefile`. You will need to have [<span style="font-variant:small-caps">SCUFF-EM</span>][scuffEM] installed before you can build this code.  
-
 # Specifying geometries
-========
+-------------------------------
 
 Geometries are described by simple text files conventionally given
 file extension `.GLMT.` Blank lines and comments (lines starting with `#`)
@@ -90,6 +85,8 @@ spherical shells of SiO2.
 # Structure of the code
 -------------------------------
 
+The repository includes a simple `Makefile`. You will need to have [<span style="font-variant:small-caps">SCUFF-EM</span>][scuffEM] installed before you can build this code.  
+
 `GLMT-scatter.cc` builds to yield a standalone executable
 command-line code called `GLMT-scatter` that implements a subset of the functionality
 of [`scuff-scatter`][scuffScatter]
@@ -110,7 +107,7 @@ call post-processing routines:
  + `GetDSIPFT()` computes the power, force, and torque on the body, using the **D**isplaced **S**urface **I**ntegral computational strategy described [in this paper](http://dx.doi.org/doi:10.1109/TAP.2015.2438393).
 
 # Examples
-========
+----------------------------------
 
 ## Power scattered by doubly-resonant nanoparticle
 
