@@ -26,12 +26,12 @@ The outputs that may be computed include
 ========
 
 The theoretical approach and notation used by this code 
-is described in [this memo][scuffSpherical]
+is described in [this memo][scuffSpherical].
 
 # Building
 ========
 
-The repository includes a simple `Makefile`. You will need to have [<span font-variant="small-caps">scuff-em</span>][scuffEM] installed before you can build this code.  
+The repository includes a simple `Makefile`. You will need to have [<span style="font-variant:small-caps">SCUFF-EM</span>][scuffEM] installed before you can build this code.  
 
 # Specifying geometries
 ========
@@ -39,7 +39,7 @@ The repository includes a simple `Makefile`. You will need to have [<span font-v
 Geometries are described by simple text files conventionally given
 file extension `.GLMT.` Blank lines and comments (lines starting with `#`)
 are skipped. Each line specifies a single spherical layer, with
-the following syntax
+the syntax
 
 ```
  RMAX   MATERIAL
@@ -59,8 +59,11 @@ Here's a `.GLMT` file describing a sphere of radius 1 &mu;m with dielectric cons
 
 And here's a `.GLMT` file describing the
  [doubly-resonant multilayered spherical particle](WadePaper)
-considered by C. W. Hsu et al, "Theoretical criteria for
-scattering dark states in nanostructured particles:"
+considered by  Hsu et al, "Theoretical criteria for scattering dark states 
+in nanostructured particles,” *Nano Letters* **14** 2783–2788, May 2014
+[(http://dx.doi.org/10.1021/nl500340n)](http://dx.doi.org/10.1021/nl500340n).
+
+
 
 ````
 0.100 	SiO2
@@ -71,7 +74,7 @@ scattering dark states in nanostructured particles:"
 ````
 
 If one of the layered material regions in your geometry is
-actually a void (no material), give it material property VACUUM.
+actually a void (no material), give it material property `VACUUM`.
 For example, here's a geometry describing the layered particle
 above, but with the silver removed to yield just two concentric 
 spherical shells of SiO2.
@@ -85,28 +88,26 @@ spherical shells of SiO2.
 ````
 
 # Structure of the code
-========
+-------------------------------
 
 `GLMT-scatter.cc` builds to yield a standalone executable
-command-line code that implements a subset of the functionality
-of [<span font-variant="small-caps">scuff-scatter</span>][scuffScatter]
+command-line code called `GLMT-scatter` that implements a subset of the functionality
+of [`scuff-scatter`][scuffScatter]
 (see examples below).
 
-The main solver is implemented in the code file `GLMTSolver.cc`
+The main solver is implemented in the code file `GLMTSolver.cc.`
 The routine `CreateGLMTSolver()` parses a `.GLMT` file and constructs
 a data structure named `GLMTSolver` containing all information
 the scattering geometry. This structure contains tables of 
 spherical-wave coefficients which are initialized for a 
 given frequency and a given incident field by the routine
-`Solve()'. Once `Solve()` has been called, you can 
+`Solve()`. Once `Solve()` has been called, you can 
 call post-processing routines:
 
  + `GetFields()` computes the scattered and total **E** and **H** fields
    at arbitrary points in space
 
- + `GetDSIPFT()` computes the power, force, and torque on the body,
-using the **D**isplaced **S**urface **I**ntegral computational strategy
-described [in this paper][PFTPaper].
+ + `GetDSIPFT()` computes the power, force, and torque on the body, using the **D**isplaced **S**urface **I**ntegral computational strategy described [in this paper](http://dx.doi.org/doi:10.1109/TAP.2015.2438393).
 
 # Examples
 ========
@@ -117,8 +118,8 @@ This example reproduces the "scattering dark state" example
 involving a nanoparticle consisting of alternating spherical
 layers of SiO2 and silver, as described
 in Hsu et al, "Theoretical criteria for scattering dark states 
-in nanostructured particles,” Nano Letters, 14, 2783–2788, 2014
-(http://dx.doi.org/10.1021/nl500340n).
+in nanostructured particles,” *Nano Letters* **14** 2783–2788, May 2014
+[(http://dx.doi.org/10.1021/nl500340n)](http://dx.doi.org/10.1021/nl500340n).
 
 ````
 #!/bin/bash
