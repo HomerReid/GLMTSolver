@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for LMAX in 1 2 
+do
+  ARGS=""
+  ARGS="${ARGS} --GLMTFile DoublyResonantParticle.GLMT"
+  ARGS="${ARGS} --OmegaFile Lambda100800nm.OmegaFile"
+  ARGS="${ARGS} --LMax ${LMAX}"
+  ARGS="${ARGS} --PWDirection 0 0 1"
+  ARGS="${ARGS} --PWPolarization 1 0 0"
+  ARGS="${ARGS} --PFTFile DoublyResonantParticle.L${LMAX}.GLMTPFT"
+  ARGS="${ARGS} --DSIRadius 0.2"
+  GLMT-scatter ${ARGS}
+done

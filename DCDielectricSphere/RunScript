@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+ARGS=""
+ARGS="${ARGS} --GLMTFile E10Sphere.GLMT"
+ARGS="${ARGS} --Omega 0.1"
+ARGS="${ARGS} --EPFile EPFile"
+ARGS="${ARGS} --PWDirection 0 0 1"
+ARGS="${ARGS} --PWPolarization 1 0 0"
+
+GLMT-scatter ${ARGS}

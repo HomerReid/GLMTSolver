@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+ARGS=""
+ARGS="${ARGS} --GLMTFile DoublyResonantParticle.GLMT"
+ARGS="${ARGS} --Omega 15"
+ARGS="${ARGS} --EPFile TP45"
+ARGS="${ARGS} --PWDirection 0 0 1"
+ARGS="${ARGS} --PWPolarization 1 0 0"
+
+GLMT-scatter ${ARGS}

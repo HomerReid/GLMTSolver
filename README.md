@@ -106,32 +106,87 @@ described [in this paper][PFTPaper].
 # Examples
 ========
 
-## Power scattered by doubly-resonant
-L=2
+## Power scattered by doubly-resonant nanoparticle
 
-ARGS=""
-ARGS="${ARGS} --GLMTFile ${GLMTDIR}/WadeParticle4.GLMT"
-ARGS="${ARGS} --PWDirection 0 0 1"
-ARGS="${ARGS} --PWPolarization 1 0 0"
-ARGS="${ARGS} --Omega 12.5"
-ARGS="${ARGS} --EPFile ${EPDIR}/TP45"
-ARGS="${ARGS} --FileBase WadeParticle4.GLMT.L${L}"
-ARGS="${ARGS} --LMax ${L}"
-${PREFIX} ${DIR}/${CODE} ${ARGS}
+This example reproduces the "scattering dark state" example
+involving a nanoparticle consisting of alternating spherical
+layers of SiO2 and silver, as described
+in Hsu et al, "Theoretical criteria for scattering dark states 
+in nanostructured particles,” Nano Letters, 14, 2783–2788, 2014
+(http://dx.doi.org/10.1021/nl500340n).
 
+````
+#!/bin/bash
 
-##################################################
-for L in 1 2 3 
+for LMAX in 1 2 
 do
+  ARGS=""
+  ARGS="${ARGS} --GLMTFile DoublyResonantParticle.GLMT"
+  ARGS="${ARGS} --OmegaFile Lambda100800nm.OmegaFile"
+  ARGS="${ARGS} --LMax ${LMAX}"
+  ARGS="${ARGS} --PWDirection 0 0 1"
+  ARGS="${ARGS} --PWPolarization 1 0 0"
+  ARGS="${ARGS} --PFTFile DoublyResonantParticle.L${LMAX}.GLMTPFT"
+  ARGS="${ARGS} --DSIRadius 0.2"
+  GLMT-scatter ${ARGS}
+done
+````
+
+(The `--DSIRadius` option controls the radius of the bounding sphere
+over which the Poynting vector and Maxwell stress tensor
+are integrated to compute powers and forces).
+
+This produces files
+`DoublyResonantParticle.L1.GLMTPFT` and
+`DoublyResonantParticle.L2.GLMTPFT.`
+To plot scattered power vs. wavelength in 
+[GNUPLOT](http://www.gnuplot.info), go like this:
+
+````bash
+gnuplot> 
+plot 'DoublyResonantParticle.L1.GLMTPFT' u (2*pi/$1):3 t 'LMax=1' w lp pt 7 ps 1, 'DoublyResonantParticle.L2.GLMTPFT'  u (2*pi/$1):3 t 'LMax=2' w lp pt 6 ps 2 
+````
+
+![Doubly resonant nanoparticle scattering cross section](SigmaVsLambda.png)
+
+## E-field vs. radial distance for doubly-resonant nanoparticle
+
+Here's how to obtain a plot of the spatial variation of the
+**E**-field magnitude. First, put the *x,y,z* coordinates
+of your desired evaluation points into a text file called `EvalPoints`:
+
+````bash
+0.00000000 0.00000000 0.00000000
+0.00050000 0.00050000 0.00050000
+...
+0.09950000 0.09950000 0.09950000
+0.10000000 0.10000000 0.10000000
+````
+
+Then pass this file as the `--EPFile` option to `GLMT-scatter`:
+
+````bash
 ARGS=""
-ARGS="${ARGS} --GLMTFile ${GLMTDIR}/WadeParticle4.GLMT"
+ARGS="${ARGS} --GLMTFile DoublyResonantParticle.GLMT"
+ARGS="${ARGS} --Omega 15"
+ARGS="${ARGS} --EPFile EvalPoints"
 ARGS="${ARGS} --PWDirection 0 0 1"
 ARGS="${ARGS} --PWPolarization 1 0 0"
-ARGS="${ARGS} --OmegaFile L100800"
-ARGS="${ARGS} --PFTFile WadeParticle4.L${L}.GLMTPFT"
-ARGS="${ARGS} --LMax ${L}"
-ARGS="${ARGS} --DSIRadius 0.2"
-${PREFIX} ${DIR}/${CODE} ${ARGS}
+GLMT-scatter ${ARGS}
+````
+
+This produces an output file called
+`DoublyResonantParticle.EvalPoints.GLMTFields.`
+To plot E-field vs. radius, go like this:
+
+````bash
+gnuplot> D3(x,y,z)=sqrt($1*$1+$2*$2+$3*$3)
+gnuplot> D6(x1,x2,x3,x4,x5,x6)=sqrt(x1*x1+x2*x2+x3*x3+x4*x4+x5*x5+x6*x6)
+gnuplot> FILE='DoublyResonantParticle.GLMT'
+gnuplot> plot FILE u (D3($1,$2,$3)):(D6($7,$8,$9,$10,$11,$12))
+````
+
+![Doubly resonant nanoparticle field vs. radius](EvR.png)
 
 scuffMaterials:		http://homerreid.github.io/scuff-em-documentation/reference/Materials
 scuffSpherical:		http://homerreid.github.io/scuff-em-documentation/tex/scuffSpherical.pdf

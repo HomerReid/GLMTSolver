@@ -1,0 +1,8 @@
+# GLMT file for a doubly-resonant particle consisting of 
+# interleaved spherical shells of SiO2 and silver, as described
+# in Hsu et al, "Theoretical criteria for scattering dark states 
+# in nanostructured particles,” Nano Letters, 14, 2783–2788, 2014
+0.100 SIO2
+0.051 Silver
+0.031 SIO2
+0.020 Silver
